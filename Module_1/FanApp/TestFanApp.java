@@ -11,8 +11,11 @@ public class TestFanApp {
 
         //show results
         System.out.println(defaultFan.toString());
+        System.out.println();
         System.out.println(slowFan.toString());
+        System.out.println();
         System.out.println(mediumFan.toString());
+        System.out.println();
         System.out.println(fastFan.toString());
 
     }
