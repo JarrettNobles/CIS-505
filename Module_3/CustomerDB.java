@@ -1,3 +1,4 @@
+//customerDB.java
 package Module_3;
 import java.util.*;
 /**
@@ -12,6 +13,10 @@ import java.util.*;
  *
  * Expected output:
  *   - A Customer object corresponding to the id, or the default Customer if not found.
+ *
+ * Note:
+ *   - Record values (names/addresses) are aligned with the assignment's screenshots,
+ *     e.g., id 1007 -> "Jennifer Patterson" at "8422 Grover Ave., Bellevue 68123".
  */
 public class CustomerDB {
     /**
@@ -26,37 +31,35 @@ public class CustomerDB {
             return new Customer();
         }//end if
 
-        // Compare id against 1007, 1008, 1009
-        if (id == 1007){
+        // Compare id against 1007, 1008, 1009 (values chosen to match expected output)
+        if (id.equals(1007)){
             return new Customer(
-                    "Alice Johnson",
-                    "123 Main St",
-                    "Springfield",
-                    "10007"
+                    "Jennifer Patterson",
+                    "8422 Grover Ave.",
+                    "Bellevue",
+                    "68123"
             );
-
         }//end if
         else if (id.equals(1008)) {
             return new Customer(
-                    "Brian Miller",
-                    "456 Oak Ave",
-                    "Greenville",
-                    "10008"
+                    "John Smith",
+                    "1010 Maple St.",
+                    "Omaha",
+                    "68154"
             );
-
         }//end else if
         else if (id.equals(1009)){
             return new Customer(
-                    "Catherine Nguyen",
-                    "789 Pine Ave",
-                    "Rivertown",
-                    "10009"
+                    "Ava Johnson",
+                    "55 Pine Ct.",
+                    "Lincoln",
+                    "68502"
             );
         }//end else if
         else{
             // No match -> return default customer
             return new Customer();
         }
-
     }//end method
 }
+

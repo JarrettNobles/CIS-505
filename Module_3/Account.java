@@ -1,3 +1,4 @@
+//ACCOUNT CLASS
 package Module_3;
 import java.util.*;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter;
  *   - getBalance(): returns current balance
  *   - deposit(double amt): increases the balance by amt
  *   - withdraw(double amt): decreases the balance by amt if sufficient funds
- *   - displayMenu(): prints the account menu
+ *   - displayMenu(): prints the account menu (matches assignment screenshots)
  *   - getTransactionDate(): returns the current date as MM-dd-yyyy
  *
  * Note:
@@ -44,7 +45,6 @@ public class Account {
      *            If negative or zero, method will not change balance.
      * @return void
      */
-
     public void deposit(double amt) {
         if (amt > 0) {
             this.balance += amt;
@@ -63,7 +63,7 @@ public class Account {
      * @return void
      */
     public void withdraw(double amt){
-        if(amt >0 && this.balance >= amt){
+        if(amt > 0 && this.balance >= amt){
             this.balance -= amt;
         } else{
             System.out.println("Insufficient funds.");
@@ -74,23 +74,22 @@ public class Account {
      * displayMenu
      * Purpose: Print the account menu to the console that matches the expected format.
      *
-     * Example output:
-     *   1. Deposit
-     *   2. Withdraw
-     *   3. Balance
-     *   4. Exit
+     * Expected menu text (exactly as in the PDF):
+     *   Account Menu
+     *   Enter <D/d> for deposit
+     *   Enter <W/w> for withdraw
+     *   Enter <B/b> for balance
+     *       Enter option>:
      *
      * @return void
      */
-
     public void displayMenu(){
         System.out.println();
-        System.out.println("Account Menu:");
-        System.out.println("1. Deposit");
-        System.out.println("2. Withdraw");
-        System.out.println("3. Balance");
-        System.out.println("4. Exit");
-        System.out.println();
+        System.out.println("Account Menu");
+        System.out.println("Enter <D/d> for deposit");
+        System.out.println("Enter <W/w> for withdraw");
+        System.out.println("Enter <B/b> for balance");
+        System.out.print("    Enter option>: ");
     }//end displayMenu method
 
     /**

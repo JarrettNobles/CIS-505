@@ -1,3 +1,4 @@
+//TestCustomerAccountApp.java
 package Module_3;
 import java.util.*;
 import java.util.Scanner;
@@ -11,11 +12,12 @@ import java.util.Scanner;
  *
  * Input:
  *   - Customer number (Integer)
- *   - Menu choices (Integer)
+ *   - Menu choices (String: D/d, W/w, B/b) to match assignment
  *   - Deposit/withdraw amounts (double)
  *
  * Output:
- *   - Menu prompts, operation results, final customer details, and account balance.
+ *   - Prompts, operation results, "Continue? (y/n): " loop,
+ *     and final customer details with balance/date, matching the screenshots.
  */
 public class TestCustomerAccountApp {
 
@@ -23,8 +25,13 @@ public class TestCustomerAccountApp {
     public static void main(String[] args) {
         Scanner lScanner = new Scanner(System.in);
 
+        // Intro block exactly like Figure 4.5
+        System.out.println("Welcome to the Customer Account App");
+        System.out.println();
+        System.out.println("Enter a customer ID:");
+        System.out.print("ex: 1007, 1008, 1009>: ");
+
         //prompt for customer number
-        System.out.print("Enter a customer number (1007 - 1009): ");
         Integer lCustomerId = null;
         try{
             lCustomerId = Integer.parseInt(lScanner.nextLine().trim());
@@ -38,79 +45,62 @@ public class TestCustomerAccountApp {
         //create account for the customer
         Account lAccount = new Account();
 
-        boolean lContinue = false;
+        boolean lContinue;
         do{
+            // Display the D/W/B menu and read a case-insensitive option
             lAccount.displayMenu();
-            System.out.print("Enter menu option (1-4): ");
-            String lChoiceRaw = lScanner.nextLine().trim();
-            int lChoice;
-            try{
-                lChoice = Integer.parseInt(lChoiceRaw);
-            } catch (NumberFormatException lEx){
-                System.out.println("Error: Invalid Option.");
-                //Ask whether to continue
-                lContinue = promptContinue(lScanner);
-                continue;
-            }//end catch
+            String lChoice = lScanner.nextLine().trim();
 
-            switch (lChoice){
-                case 1:
-                    //deposit
-                    System.out.print("Enter deposit amount: ");
-                    double lDepositAmt = readDouble(lScanner);
-                    if(lDepositAmt > 0){
-                        lAccount.deposit(lDepositAmt);
-                        System.out.printf("Deposit successful. Date: %s%n", lAccount.getTransactionDate());
-                        System.out.printf("New balance: $%,6.2f%n", lAccount.getBalance());
-                    } else{
-                        System.out.println("Invalid deposit amount.");
-                    }
-                    break;
-
-                case 2:
-                    //withdraw
-                    System.out.print("Enter withdrawal amount: ");
-                    double lWithdrawAmt = readDouble(lScanner);
-                    if(lWithdrawAmt > 0){
-                        if(lAccount.getBalance() >= lWithdrawAmt){
-                            lAccount.withdraw(lWithdrawAmt);
-                            System.out.printf("Withdrawal successful. Date: %s%n", lAccount.getTransactionDate());
-                            System.out.printf("New balance: $%,6.2f%n", lAccount.getBalance());
-                        } else{
-                            System.out.println("Error: Insufficient funds.");
-                            System.out.printf("Current balance: $%,6.2f%n", lAccount.getBalance());
-                        }
-                    } else{
-                        System.out.println("Invalid withdrawal amount.");
-                    }
-                    break;
-
-                case 3:
-                    //Balance
-                    System.out.printf("Current balance: $%,6.2f%n", lAccount.getBalance());
-                    break;
-
-                case 4:
-                    //Exit
-                    lContinue = false;
-                    break;
-
-                default:
-                    System.out.println("Error: Invalid Option.");
-                    break;
+            if (lChoice.equalsIgnoreCase("b")) {
+                // Balance: formatted as in the screenshots
+                System.out.println();
+                System.out.printf("Account balance: $%,.2f%n", lAccount.getBalance());
+            }
+            else if (lChoice.equalsIgnoreCase("d")) {
+                //deposit
+                System.out.println();
+                System.out.print("Enter deposit amount: ");
+                double lDepositAmt = readDouble(lScanner);
+                if(lDepositAmt > 0){
+                    lAccount.deposit(lDepositAmt);
+                } else{
+                    System.out.println("Invalid deposit amount.");
+                }
+            }
+            else if (lChoice.equalsIgnoreCase("w")) {
+                //withdraw
+                System.out.println();
+                System.out.print("Enter withdraw amount: ");
+                double lWithdrawAmt = readDouble(lScanner);
+                if(lWithdrawAmt > 0 && lAccount.getBalance() >= lWithdrawAmt){
+                    lAccount.withdraw(lWithdrawAmt);
+                } else if (lWithdrawAmt <= 0) {
+                    System.out.println("Invalid withdraw amount.");
+                } else {
+                    System.out.println("Insufficient funds.");
+                }
+            }
+            else {
+                // Invalid option message should match the figure
+                System.out.println();
+                System.out.println("Error: Invalid option");
             }
 
-            //if choice was not exit (4), ask to continue
-            if(lChoice != 4){
-                lContinue = promptContinue(lScanner);
-            }
+            //Ask whether to continue (matches "Continue? (y/n): ")
+            lContinue = promptContinue(lScanner);
 
         } while (lContinue);
-        // After exiting the menu, display customer details and account balance
+
+        // After exiting the menu, display customer details and account balance/date
         System.out.println();
-        System.out.println("Customer Details:");
-        System.out.println(lCustomer.toString());
-        System.out.printf("Account Balance: $%,6.2f%n", lAccount.getBalance());
+        System.out.println("--Customer Details--");
+        System.out.print(lCustomer.toString()); // already includes newlines per field
+        System.out.println();
+        System.out.printf("Balance as of %s is $%,.2f%n",
+                lAccount.getTransactionDate(), lAccount.getBalance());
+        System.out.println();
+        System.out.println("End of line...");
+
         lScanner.close();
     }//end main method
 
@@ -132,18 +122,15 @@ public class TestCustomerAccountApp {
 
     /**
      * promptContinue
-     * Purpose: Ask the user whether they want to continue (Y/N). Returns true for yes.
+     * Purpose: Ask the user whether they want to continue (y/n). Returns true for yes.
+     * Matches the assignment's exact prompt and accepts y/yes in any case.
      *
      * @param lScanner Scanner object used for input
      * @return boolean true if user wants to continue, false otherwise
      */
     private static boolean promptContinue(Scanner lScanner){
-        System.out.print("Continue? (Y/N): ");
-        String lInput = lScanner.nextLine().trim().toUpperCase();
-        if(lInput.equals("Y") || lInput.equals("Yes")){
-            return true;
-        } else{
-            return false;
-        }
+        System.out.print("Continue? (y/n): ");
+        String lInput = lScanner.nextLine().trim();
+        return lInput.equalsIgnoreCase("y") || lInput.equalsIgnoreCase("yes");
     }
 }//end class
