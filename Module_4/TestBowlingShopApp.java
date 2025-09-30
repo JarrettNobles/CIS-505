@@ -9,7 +9,7 @@ import java.util.Scanner;
  * File: product.java
  * Theme Focus: Inheritance and Polymorphism
  * Description:
- *  Console UI that displays a menu, fetches a queue of 'product (polymorphic)
+ *  Console UI that displays a menu, fetches a queue of 'product' (polymorphic)
  *  from ProductDB, and prints by dequeue each item. Loops until user enters 'x'.
  *  Matches the control flow demonstrated in figures 7.1 through 7.3
  */
@@ -45,13 +45,13 @@ public class TestBowlingShopApp {
                 continue;
             }//end if
 
-            int index = 1;
-            //Per assignment, call dequeue() inside the loop and use size() to control
-            while(products.size() > 0){
-                //dynamic dispatch on toString()
-                product p = products.dequeue();
-                System.out.printf("(%d/%d)%n%s%n%n");
-            }//end while
+            int i = 1;
+            // Minimal fix: format string matches exactly 3 args (i, n, product text)
+            while (products.size() > 0) {
+                product p = products.dequeue(); // dynamic dispatch on toString()
+                System.out.printf("(%d/%d)%n%s%n%n", i, total, p.toString());
+                i++;
+            }
         }//end while
         in.close();
     }//end main
