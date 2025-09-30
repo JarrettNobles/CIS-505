@@ -19,5 +19,22 @@ public class GenericQueue<T> {
     private LinkedList<T> list = new LinkedList<>();
 
     //Add an item to the front of the list (per assignment)
-    
-}
+    public void enqueue(T item){
+        list.addFirst(item);
+    }
+
+    //removes and returns the front item (per assignment)
+    public T dequeue(){
+        return list.removeFirst();
+    }
+
+    //current number of items
+    public int size(){
+        return list.size();
+    }
+
+    //true if the queue is empty.
+    public boolean isEmpty(){
+        return list.isEmpty();
+    }
+}//end class
