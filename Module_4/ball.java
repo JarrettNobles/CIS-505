@@ -36,5 +36,5 @@ public class ball extends product{
     public String toString(){
         return super.toString() + System.lineSeparator()
                 + "Color: " + color;
-    }
-}
+    }//end to string
+}//end class ball
