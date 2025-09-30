@@ -13,6 +13,7 @@ import java.util.*;
  * Expected output:
  *   - toString() returns the customer's details, each field on a separate line.
  */
+
 public class Customer {
 
     //Class variables

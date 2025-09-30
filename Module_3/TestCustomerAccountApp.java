@@ -22,6 +22,7 @@ import java.util.Scanner;
 public class TestCustomerAccountApp {
 
     //main method
+
     public static void main(String[] args) {
         Scanner lScanner = new Scanner(System.in);
 

@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
  * Note:
  *   - Currency printing should be handled by the caller using printf("$%,6.2f")
  */
+
 public class Account {
     // Private data field for balance; default value is 200
     private double balance = 200.0;

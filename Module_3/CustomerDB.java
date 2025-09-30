@@ -18,6 +18,7 @@ import java.util.*;
  *   - Record values (names/addresses) are aligned with the assignment's screenshots,
  *     e.g., id 1007 -> "Jennifer Patterson" at "8422 Grover Ave., Bellevue 68123".
  */
+
 public class CustomerDB {
     /**
      * getCustomer
