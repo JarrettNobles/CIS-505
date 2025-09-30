@@ -13,7 +13,7 @@ import java.util.Scanner;
  *  from ProductDB, and prints by dequeue each item. Loops until user enters 'x'.
  *  Matches the control flow demonstrated in figures 7.1 through 7.3
  */
-public class TestBowlingShoppApp {
+public class TestBowlingShopApp {
     //prints the selection menu (Figure 7.1).
     private static void displayMenu(){
         System.out.println("MENU OPTIONS");
