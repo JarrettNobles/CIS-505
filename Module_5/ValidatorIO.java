@@ -38,4 +38,37 @@ public class ValidatorIO {
         return input;
     }//end get int
 
+    //getDouble method
+    /**
+     * Prompts the user to enter a double value and validates the input.
+     * @param sc Scanner instance for reading input
+     * @param prompt Message to display to the user
+     * @return Valid double entered by the user
+     */
+
+    public static double getDouble(Scanner sc, String prompt){
+        double input = 0.0;
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.print("  " + prompt);  // two leading spaces
+            if (sc.hasNextDouble()) {
+                input = sc.nextDouble();
+                isValid = true;
+            } else {
+                System.out.println("  Error! Invalid double value.");
+            }
+            sc.nextLine();
+        }
+        return input;
+    }//end getDouble
+
+    //getString method
+    /**
+     * Prompts the user to enter a string value.
+     * @param sc Scanner instance for reading input
+     * @param prompt Message to display to the user
+     * @return String value entered by the user
+     */
+
 }//end class
