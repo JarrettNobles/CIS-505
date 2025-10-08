@@ -70,5 +70,8 @@ public class ValidatorIO {
      * @param prompt Message to display to the user
      * @return String value entered by the user
      */
-
+    public static String getString(Scanner sc, String prompt) {
+        System.out.print("  " + prompt);  // two leading spaces
+        return sc.nextLine();
+    }//end getString
 }//end class
