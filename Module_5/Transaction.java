@@ -41,7 +41,62 @@ public class Transaction {
      * @param amount the amount of the transaction
     */
     public Transaction(String date, String description, double amount){
-
+        this.date = date;
+        this.description = description;
+        this.amount = amount;
     }//end constructor
 
-}
+    // ------------------------------------------------------------
+    // Accessors (Getters)
+    // ------------------------------------------------------------
+
+    /** @return the date of the transaction */
+    public String getDate(){
+        return date;
+    }//end getDate
+
+    /** @return the description of the transaction */
+    public String getDescription(){
+        return description;
+    }//end getDescription
+
+    /** @return the amount of the transaction */
+    public double getAmount() {
+        return amount;
+    }//end getAmount
+
+    // ------------------------------------------------------------
+    // Mutators (Setters)
+    // ------------------------------------------------------------
+    /** @param date the date to set */
+    public void setDate(String date) {
+        this.date = date;
+    }//end setDate
+
+    /** @param description the description to set */
+    public void setDescription(String description) {
+        this.description = description;
+    }//end setDescription
+
+    /** @param amount the amount to set */
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }//end setAmount
+
+    // ------------------------------------------------------------
+    // Overridden to string method
+    // ------------------------------------------------------------
+    /**
+     * Returns a string representation of the transaction with each field
+     * on a separate line, formatted with two leading spaces.
+     * Example:
+     *   Date: 10-08-2025
+     *   Description: Gas Station
+     *   Amount: 45.75
+     */
+    @Override
+    public String toString(){
+        return String.format("  Date: %s%n  Description: %s%n  Amount: %.2f",
+                date, description, amount);
+    }//end overridden to string method
+}//end transaction class
