@@ -1,5 +1,5 @@
 package Module_4;
-import java.util.*;
+
 /*
  * COURSE: CIS 505
  * Assignment: 4.2 BowlingShopApp
@@ -17,17 +17,17 @@ import java.util.*;
  *  -Polymorphism: Variables of type 'product' can reference any subclass,
  *  and overridden toString() resolves runtime.
  */
-public class product {
+public class Product {
     //declare variables
     private String code;
     private String description;
     private double price;
 
     //no-arg constructor
-    public product(){}
+    public Product(){}
 
     //convenience constructor
-    public product(String code, String description, double price){
+    public Product(String code, String description, double price){
         this.code=code;
         this.description=description;
         this.price=price;

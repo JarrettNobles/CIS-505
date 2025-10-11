@@ -1,5 +1,5 @@
 package Module_4;
-import java.util.*;
+
 /*
 *COURSE: CIS 505
  * Assignment: 4.2 BowlingShopApp
@@ -12,15 +12,15 @@ import java.util.*;
  *  Demonstrates inheritance by extending product and polymorphism by
  *  overriding/augmenting toString()
  */
-public class ball extends product{
+public class Ball extends Product {
     //declare variables
     private String color;
 
-    public ball(){
+    public Ball(){
         super();
     }
 
-    public ball(String code, String description, double price, String color){
+    public Ball(String code, String description, double price, String color){
         super(code, description, price);
         this.color = color;
     }

@@ -1,5 +1,5 @@
 package Module_4;
-import java.util.*;
+
 /*
  *COURSE: CIS 505
  * Assignment: 4.2 BowlingShopApp
@@ -11,14 +11,14 @@ import java.util.*;
  *  shoe is a product with an additional field: size.
  *  Extends product and appends its own attribute to the display output.
  */
-public class shoe extends product{
+public class Shoe extends Product {
     private int size;
 
-    public shoe(){
+    public Shoe(){
         super();
     }
 
-    public shoe(String code, String description, double price, int size){
+    public Shoe(String code, String description, double price, int size){
         super(code, description, price);
         this.size = size;
     }

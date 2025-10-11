@@ -1,5 +1,4 @@
 package Module_4;
-import java.util.*;
 /*
  * Course: CIS 505
  * Assignment: 4.2 BowlingShopApp
@@ -46,7 +45,7 @@ public class TestBowlingShopApp {
             }//end if
 
             // Fetch products only for valid non-exit choices
-            GenericQueue<product> products = ProductDB.getProducts(choice); // Figure 7.2
+            GenericQueue<Product> products = ProductDB.getProducts(choice); // Figure 7.2
             int total = products.size();
 
             if (total == 0) {
@@ -56,7 +55,7 @@ public class TestBowlingShopApp {
 
             int i = 1;
             while (products.size() > 0) {
-                product p = products.dequeue(); // polymorphic toString()
+                Product p = products.dequeue(); // polymorphic toString()
                 System.out.printf("(%d/%d)%n%s%n%n", i, total, p.toString());
                 i++;
             }//end while

@@ -1,5 +1,5 @@
 package Module_4;
-import java.util.*;
+
 /*
  *COURSE: CIS 505
  * Assignment: 4.2 BowlingShopApp
@@ -11,14 +11,14 @@ import java.util.*;
  *  bag is a product with an additional field: type (Example: Roller, tote).
  *  Extends product and appends its own attribute to the display output
  */
-public class bag extends product{
+public class Bag extends Product {
     private String type;
 
-    public bag(){
+    public Bag(){
         super();
     }
 
-    public bag(String code, String description, double price, String type){
+    public Bag(String code, String description, double price, String type){
         super(code, description, price);
         this.type = type;
     }
