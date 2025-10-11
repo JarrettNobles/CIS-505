@@ -1,6 +1,5 @@
 package Module_5;
 //imports
-import java.util.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +18,7 @@ import java.util.Scanner;
  */
 public class TransactionIO {
     //data fields
-    private static final String FILE_NAME = "expenses.txt";
+    private static final String FILE_NAME = "Module_5/expenses.txt";
     private static final File file = new File(FILE_NAME);
 
     //bulk insert method

@@ -65,12 +65,12 @@ public class TestExpenseTracker {
      * - Four leading spaces for numbered menu items
      */
     private static void printMenu() {
-        System.out.println("  ===============================");
-        System.out.println("  Expense Tracker");
-        System.out.println("  ===============================");
-        System.out.println("    1) List all transactions");
-        System.out.println("    2) Add a new transaction");
-        System.out.println("    3) Display total expenses");
+        System.out.println("  Welcome to the Expense Tracker");
+        System.out.println(" ");
+        System.out.println("  Menu Options");
+        System.out.println("    1) View Transactions");
+        System.out.println("    2) Add Transactions");
+        System.out.println("    3) View Expense");
         System.out.println("  -------------------------------");
     }
 
@@ -90,7 +90,7 @@ public class TestExpenseTracker {
                 return;
             }
 
-            System.out.println("  All Transactions:");
+            System.out.println("  Monthly Expenses:");
             System.out.println("  -----------------");
             for (Transaction t : txns) {
                 // Transaction.toString() prints each field on its own line with two leading spaces
@@ -129,7 +129,7 @@ public class TestExpenseTracker {
             while (more.startsWith("y")) {
                 String d = ValidatorIO.getString(sc, "Enter date (MM-dd-yyyy): ");
                 String desc = ValidatorIO.getString(sc, "Enter description: ");
-                double amt = ValidatorIO.getDouble(sc, "Enter amount: ");
+                double amt = ValidatorIO.getDouble(sc, "Enter amount: $");
                 toWrite.add(new Transaction(d, desc, amt));
                 more = ValidatorIO.getString(sc, "Add another transaction? (y/n): ").trim().toLowerCase(Locale.ROOT);
             }
