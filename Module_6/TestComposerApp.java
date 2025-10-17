@@ -39,59 +39,77 @@ public class TestComposerApp {
         boolean runApp = true;
         while (runApp) {
             printMenu();
-            System.out.print("  Enter menu option: ");
+            System.out.print("  Please choose an option: ");
             String option = sc.nextLine().trim();
+            System.out.println();
 
             switch (option) {
                 case "1":
+                    // ------------------------------------------------------------
                     // Option 1: View all composers
-                    System.out.println("  --------------------------------------------------");
-                    System.out.println("  Composers");
-                    System.out.println("  --------------------------------------------------");
+                    // ------------------------------------------------------------
+                    System.out.println("  —DISPLAYING COMPOSERS—");
+                    //System.out.println();
 
                     List<Composer> composers = dao.findAll();
-                    for (Composer c : composers) {
-                        System.out.println(c.toString());
-                        System.out.println("  --------------------------------------------------");
+                    for (int i = 0; i < composers.size(); i++) {
+                        System.out.println(composers.get(i).toString());
+                        if (i < composers.size() - 1) {
+                            System.out.println();
+                        }//end if
                     }//end for
+                    System.out.println();
                     break;
 
                 case "2":
+                    // ------------------------------------------------------------
                     // Option 2: Find composer by ID
-                    System.out.print("  Enter an ID: ");
+                    // ------------------------------------------------------------
+                    System.out.print("  Enter an id: ");
                     Integer id = readInt(sc);
+                    System.out.println();
+                    System.out.println("  —DISPLAYING COMPOSER—");
+                    //System.out.println();
 
-                    System.out.println("  --------------------------------------------------");
                     Composer found = dao.findBy(id);
                     if (found != null) {
                         System.out.println(found.toString());
                     } else {
-                        System.out.println("  No composer found with ID " + id + ".");
-                    }//end else
-                    System.out.println("  --------------------------------------------------");
+                        System.out.println("  No composer found with id: " + id);
+                    }//end if
+                    System.out.println();
                     break;
 
                 case "3":
+                    // ------------------------------------------------------------
                     // Option 3: Add a new composer
-                    System.out.print("  Enter an ID: ");
+                    // ------------------------------------------------------------
+                    System.out.print("  Enter an id: ");
                     int newId = readInt(sc);
                     System.out.print("  Enter a name: ");
                     String name = sc.nextLine();
                     System.out.print("  Enter a genre: ");
                     String genre = sc.nextLine();
+                    System.out.println();
 
                     dao.insert(new Composer(newId, name, genre));
-                    System.out.println("  Composer successfully added!");
+                    // Figure 5.1 does not show a success line here, returns to menu
                     break;
 
                 case "4":
+                    // ------------------------------------------------------------
                     // Option 4: Exit the program
+                    // ------------------------------------------------------------
                     System.out.println("  Goodbye!");
                     runApp = false;
                     break;
 
                 default:
+                    // ------------------------------------------------------------
+                    // Invalid option handling
+                    // ------------------------------------------------------------
                     System.out.println("  Invalid option. Please try again.");
+                    System.out.println();
                     break;
             }//end switch
         }//end while
@@ -113,15 +131,15 @@ public class TestComposerApp {
     private static void printMenu() {
         System.out.println("  MENU OPTIONS");
         System.out.println("    1. View Composers");
-        System.out.println("    2. Find Composer by ID");
-        System.out.println("    3. Add a Composer");
+        System.out.println("    2. Find Composer");
+        System.out.println("    3. Add Composer");
         System.out.println("    4. Exit");
         System.out.println();
     }//end printMenu method
 
     /**
-     * Reads an integer from input safely.
-     * Keeps prompting until a valid integer is entered.
+     * Reads an integer safely.
+     * Reprompts if invalid input is provided.
      */
     private static int readInt(Scanner sc) {
         while (true) {
@@ -131,7 +149,8 @@ public class TestComposerApp {
             } catch (NumberFormatException e) {
                 System.out.print("  Please enter a valid number: ");
             }//end catch
-        }//end while loop
+        }//end while
     }//end readInt method
 }//end class
+
 

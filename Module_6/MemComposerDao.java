@@ -21,11 +21,11 @@ public class MemComposerDao implements ComposerDao {
     //no argument constructor that initializes the list of composers with five composers
     public MemComposerDao() {
         composers = new ArrayList<>();
-        composers.add(new Composer(1001, "Ludwig van Beethoven", "Classical"));
-        composers.add(new Composer(1002, "Johann Sebastian Bach", "Baroque"));
-        composers.add(new Composer(1003, "Wolfgang Amadeus Mozart", "Classical"));
-        composers.add(new Composer(1004, "Frédéric Chopin", "Romantic"));
-        composers.add(new Composer(1005, "Duke Ellington", "Jazz"));
+        composers.add(new Composer(1007, "Ludwig van Beethoven", "Classical"));
+        composers.add(new Composer(1008, "Johann Sebastian Bach", "Baroque"));
+        composers.add(new Composer(1009, "Wolfgang Amadeus Mozart", "Classical"));
+        composers.add(new Composer(1010, "Frédéric Chopin", "Romantic"));
+        composers.add(new Composer(1011, "Duke Ellington", "Jazz"));
     }//end constructor
 
     /**
