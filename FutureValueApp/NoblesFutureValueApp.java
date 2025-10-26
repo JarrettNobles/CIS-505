@@ -101,7 +101,7 @@ public class NoblesFutureValueApp extends Application {
         cboYears = new ComboBox<>();
         for (int i = 1; i <= 30; i++) {
             cboYears.getItems().add(i);
-        }
+        }//end for
         cboYears.getSelectionModel().selectFirst(); // default to 1 year
 
         // 5) Initialize Buttons with texts to match exhibits (Requirement b)
@@ -146,7 +146,7 @@ public class NoblesFutureValueApp extends Application {
         Scene scene = new Scene(grid);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }//end start method
 
     // ------------------------------------------------------------
     // Event Handlers
@@ -185,8 +185,8 @@ public class NoblesFutureValueApp extends Application {
                     "  Please enter a valid number for Investment Amount and Yearly Interest Rate.\n" +
                             "  Hint: Interest rate should look like 11.1 (for 11.1%)."
             );
-        }
-    }
+        }//end catch
+    }//end onCalculate method
 
     /**
      * onClear
@@ -197,11 +197,8 @@ public class NoblesFutureValueApp extends Application {
         txtYearlyInterestRate.clear();
         cboYears.getSelectionModel().selectFirst();
         txtAreaResults.clear();
-    }
+    }//end onClear method
 
-    // ------------------------------------------------------------
-    // Helpers
-    // ------------------------------------------------------------
 
     /**
      * parseCurrencyLike
@@ -214,18 +211,16 @@ public class NoblesFutureValueApp extends Application {
     private double parseCurrencyLike(String input) {
         if (input == null) {
             throw new NumberFormatException("Null input");
-        }
+        }//end if
         String cleaned = input.trim()
                 .replace("$", "")
                 .replace(",", "");
         return Double.parseDouble(cleaned);
-    }
+    }//end parseCurrencyLike method
 
-    // ------------------------------------------------------------
-    // Main
-    // ------------------------------------------------------------
+    //main method
     public static void main(String[] args) {
         launch(args);
-    }
-}
+    }//end main
+}//end
 
