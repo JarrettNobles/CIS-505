@@ -1,21 +1,20 @@
 package Module_8;
 /*
  * ------------------------------------------------------------
- * Program: Enhanced Future Value App
- * File: NoblesFutureValueApp.java
+ * Program: Future Value App (Week 2)
+ * File: NoblesEnhancedFutureValueApp.java
  * Author: Jarrett Nobles
  * Course: CIS-505 — Software Engineering
  * Date: 2025-11-02
  * Description:
- *   JavaFX UI for the Future Value App. Collects Monthly Payment,
- *   Interest Rate (% as 11.1), and Years (ComboBox). On Calculate,
- *   shows "Calculation as of <MM/dd/yyyy>" above the results box
- *   and writes "The future value is <currency>" into the box.
+ *   JavaFX UI that matches the assignment's example exactly.
+ *   - Red hint: "Enter 11.1% as 11.1"
+ *   - Date label above the results: "Calculation as of <MM/dd/yyyy>"
+ *   - TextArea shows only: "The future value is <currency>"
+ *   - Clear sets Years to 0 and clears all fields.
  *
  *   Required private methods:
- *     - clearFormFields() : void
- *     - calculateResults(): void
- *     - getTodaysDate()   : String (MM/dd/yyyy)
+ *     clearFormFields(), calculateResults(), getTodaysDate()
  * ------------------------------------------------------------
  */
 
@@ -38,18 +37,18 @@ public class NoblesEnhancedFutureValueApp extends Application {
     private TextField txtMonthlyPayment;
     private TextField txtInterestRate;
     private ComboBox<Integer> cbYears;
-    private Label lblCalcDate;       // "Calculation as of <date>"
-    private TextArea txtResults;     // "The future value is $X,XXX.XX"
+    private Label lblCalcDate;   // "Calculation as of <date>"
+    private TextArea txtResults; // "The future value is $X,XXX.XX"
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("Future Value App");
 
-        // Header (optional visual, not required by logic)
+        // Header (visual only)
         Label header = new Label("Future Value App");
         header.setFont(Font.font(18));
 
-        // Field labels
+        // Labels
         Label lblMonthly = new Label("Monthly Payment:");
         Label lblRate    = new Label("Interest Rate:");
         Label lblYears   = new Label("Years:");
@@ -61,69 +60,66 @@ public class NoblesEnhancedFutureValueApp extends Application {
         txtInterestRate   = new TextField();
 
         cbYears = new ComboBox<>();
-        cbYears.getItems().add(0);                 // so Clear can set to 0
+        cbYears.getItems().add(0); // required so Clear can set it to 0
         for (int y = 1; y <= 50; y++) cbYears.getItems().add(y);
         cbYears.setValue(0);
 
-        // Date label ABOVE the results box (empty until Calculate)
+        // Date label (above results)
         lblCalcDate = new Label("");
 
-        // Results box
+        // Results box (read-only)
         txtResults = new TextArea();
         txtResults.setEditable(false);
-        txtResults.setPrefRowCount(4);
         txtResults.setWrapText(true);
+        txtResults.setPrefRowCount(4);
 
         // Buttons
         Button btnClear = new Button("Clear");
         Button btnCalc  = new Button("Calculate");
 
-        // Layout grid
+        // Layout
         GridPane g = new GridPane();
         g.setPadding(new Insets(14));
         g.setVgap(10);
         g.setHgap(12);
+        g.setAlignment(Pos.TOP_LEFT);
 
-        // Row 0: header
+        // Row 0
         g.add(header, 0, 0, 3, 1);
 
-        // Row 1: Monthly Payment
+        // Row 1
         g.add(lblMonthly,        0, 1);
         g.add(txtMonthlyPayment, 1, 1, 2, 1);
 
-        // Row 2: Interest Rate + red hint on same row (to the right)
-        g.add(lblRate,       0, 2);
-        g.add(txtInterestRate, 1, 2);
-        g.add(lblHint,       2, 2);
+        // Row 2 (rate + red hint)
+        g.add(lblRate,        0, 2);
+        g.add(txtInterestRate,1, 2);
+        g.add(lblHint,        2, 2);
 
-        // Row 3: Years
+        // Row 3 (years)
         g.add(lblYears, 0, 3);
         g.add(cbYears,  1, 3);
 
-        // Row 4: Buttons
+        // Row 4 (buttons)
         g.add(btnClear, 0, 4);
         g.add(btnCalc,  1, 4);
         GridPane.setHalignment(btnCalc, HPos.LEFT);
 
-        // Row 5: Calculation as of <date>
+        // Row 5 (calculation date)
         g.add(lblCalcDate, 0, 5, 3, 1);
 
-        // Row 6: Results area (label on the left in example is just spacing; the
-        // text content itself starts with "The future value is ...")
+        // Row 6 (results area)
         g.add(txtResults, 0, 6, 3, 1);
 
-        // Alignments
-        g.setAlignment(Pos.TOP_LEFT);
-
-        // Wire events (exact behavior)
+        // Wire events
         btnClear.setOnAction(e -> clearFormFields());
         btnCalc.setOnAction(e -> calculateResults());
 
-        stage.setScene(new Scene(g, 420, 360));
+        stage.setScene(new Scene(g, 440, 360));
         stage.show();
     }
 
-    // Clears all fields and sets Years to 0; wipes date/box text.
+    // Clears all fields and resets years to 0.
     private void clearFormFields() {
         txtMonthlyPayment.setText("");
         txtInterestRate.setText("");
@@ -132,8 +128,7 @@ public class NoblesEnhancedFutureValueApp extends Application {
         txtResults.setText("");
     }
 
-    // Reads inputs, computes future value via FinanceCalculator, and prints
-    // the required strings in the required places.
+    // Reads inputs, computes, writes exact strings to the exact places.
     private void calculateResults() {
         try {
             double monthly = Double.parseDouble(txtMonthlyPayment.getText().trim());
@@ -151,7 +146,7 @@ public class NoblesEnhancedFutureValueApp extends Application {
 
             double fv = FinanceCalculator.calculateFutureValue(monthly, rate, years);
 
-            // EXACT strings/placement
+            // EXACT placement/wording
             lblCalcDate.setText("Calculation as of " + getTodaysDate());
 
             NumberFormat currency = NumberFormat.getCurrencyInstance();
@@ -162,7 +157,7 @@ public class NoblesEnhancedFutureValueApp extends Application {
         }
     }
 
-    // MM/dd/yyyy format
+    // MM/dd/yyyy
     private String getTodaysDate() {
         return new SimpleDateFormat("MM/dd/yyyy").format(new Date());
     }

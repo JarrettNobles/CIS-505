@@ -1,19 +1,18 @@
 package Module_8;
 /*
  * ------------------------------------------------------------
- * Program: Future Value App (Week 2)
+ * Program: Enhanced Future Value App (Week 8)
  * File: FinanceCalculator.java
  * Author: Jarrett Nobles
  * Course: CIS-505 — Software Engineering
  * Date: 2025-11-02
  * Description:
- *   Helper class that provides a static method to calculate
- *   future value per the assignment formula.
+ *   Helper with a static method to calculate future value.
  *
- *   Formula (per instructions):
+ *   Formula:
  *     MONTHS_IN_YEAR = 12
- *     months = years * MONTHS_IN_YEAR
- *     interestRate = (1 + rate / 100)
+ *     months       = years * MONTHS_IN_YEAR
+ *     interestRate = 1 + (rate / 100)
  *     presentValue = monthlyPayment * months
  *     futureValue  = presentValue * Math.pow(interestRate, months)
  * ------------------------------------------------------------
