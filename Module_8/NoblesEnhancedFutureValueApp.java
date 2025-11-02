@@ -1,29 +1,26 @@
 package Module_8;
 /*
  * ------------------------------------------------------------
- * Program: Enhanced Future Value (Assignment 8.2)
- * File: NoblesEnhancedFutureValueApp.java
+ * Program: Enhanced Future Value App
+ * File: NoblesFutureValueApp.java
  * Author: Jarrett Nobles
  * Course: CIS-505 — Software Engineering
  * Date: 2025-11-02
  * Description:
- *   JavaFX application that collects user inputs, calls
- *   FinanceCalculator.calculateFutureValue, and displays
- *   "Calculation as of <today’s date>" and
- *   "The future value is <futureValue>" in the UI.
+ *   JavaFX UI for the Future Value App. Collects Monthly Payment,
+ *   Interest Rate (% as 11.1), and Years (ComboBox). On Calculate,
+ *   shows "Calculation as of <MM/dd/yyyy>" above the results box
+ *   and writes "The future value is <currency>" into the box.
  *
  *   Required private methods:
  *     - clearFormFields() : void
  *     - calculateResults(): void
- *     - getTodaysDate()   : String (format "MM/dd/yyyy")
- *
- *   Button wiring (required):
- *     - btnClear.setOnAction(e -> clearFormFields());
- *     - btnCalculate.setOnAction(e -> calculateResults());
+ *     - getTodaysDate()   : String (MM/dd/yyyy)
  * ------------------------------------------------------------
  */
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -41,126 +38,144 @@ public class NoblesEnhancedFutureValueApp extends Application {
     private TextField txtMonthlyPayment;
     private TextField txtInterestRate;
     private ComboBox<Integer> cbYears;
-    private Label lblFutureValueDate;
-    private TextArea txtResults;
-    private Button btnCalculate;
-    private Button btnClear;
+    private Label lblCalcDate;       // "Calculation as of <date>"
+    private TextArea txtResults;     // "The future value is $X,XXX.XX"
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Enhanced Future Value");
+        stage.setTitle("Future Value App");
 
-        Label lblHeader = new Label("Enhanced Future Value Calculator");
-        lblHeader.setFont(Font.font(18));
+        // Header (optional visual, not required by logic)
+        Label header = new Label("Future Value App");
+        header.setFont(Font.font(18));
 
-        Label lblMonthlyPayment = new Label("Monthly Payment:");
-        Label lblInterestRate  = new Label("Interest Rate (%):");
-        Label lblYears         = new Label("Years:");
-        lblFutureValueDate     = new Label("");
+        // Field labels
+        Label lblMonthly = new Label("Monthly Payment:");
+        Label lblRate    = new Label("Interest Rate:");
+        Label lblYears   = new Label("Years:");
+        Label lblHint    = new Label("Enter 11.1% as 11.1");
+        lblHint.setStyle("-fx-text-fill: red;");
 
+        // Inputs
         txtMonthlyPayment = new TextField();
-        txtMonthlyPayment.setPromptText("e.g., 250.00");
-
-        txtInterestRate = new TextField();
-        txtInterestRate.setPromptText("e.g., 5.0");
+        txtInterestRate   = new TextField();
 
         cbYears = new ComboBox<>();
-        cbYears.getItems().add(0); // required so clear sets it to 0
+        cbYears.getItems().add(0);                 // so Clear can set to 0
         for (int y = 1; y <= 50; y++) cbYears.getItems().add(y);
         cbYears.setValue(0);
 
+        // Date label ABOVE the results box (empty until Calculate)
+        lblCalcDate = new Label("");
+
+        // Results box
         txtResults = new TextArea();
         txtResults.setEditable(false);
         txtResults.setPrefRowCount(4);
         txtResults.setWrapText(true);
 
-        btnCalculate = new Button("Calculate");
-        btnClear     = new Button("Clear");
+        // Buttons
+        Button btnClear = new Button("Clear");
+        Button btnCalc  = new Button("Calculate");
 
-        GridPane root = new GridPane();
-        root.setPadding(new Insets(16));
-        root.setHgap(10);
-        root.setVgap(10);
+        // Layout grid
+        GridPane g = new GridPane();
+        g.setPadding(new Insets(14));
+        g.setVgap(10);
+        g.setHgap(12);
 
-        root.add(lblHeader, 0, 0, 2, 1);
-        root.add(lblMonthlyPayment, 0, 1);
-        root.add(txtMonthlyPayment, 1, 1);
-        root.add(lblInterestRate, 0, 2);
-        root.add(txtInterestRate, 1, 2);
-        root.add(lblYears, 0, 3);
-        root.add(cbYears, 1, 3);
+        // Row 0: header
+        g.add(header, 0, 0, 3, 1);
 
-        GridPane buttons = new GridPane();
-        buttons.setHgap(10);
-        buttons.add(btnCalculate, 0, 0);
-        buttons.add(btnClear, 1, 0);
-        buttons.setAlignment(Pos.CENTER_LEFT);
-        root.add(buttons, 1, 4);
+        // Row 1: Monthly Payment
+        g.add(lblMonthly,        0, 1);
+        g.add(txtMonthlyPayment, 1, 1, 2, 1);
 
-        root.add(lblFutureValueDate, 0, 5, 2, 1);
-        root.add(txtResults, 0, 6, 2, 1);
+        // Row 2: Interest Rate + red hint on same row (to the right)
+        g.add(lblRate,       0, 2);
+        g.add(txtInterestRate, 1, 2);
+        g.add(lblHint,       2, 2);
 
-        // Required event wiring
+        // Row 3: Years
+        g.add(lblYears, 0, 3);
+        g.add(cbYears,  1, 3);
+
+        // Row 4: Buttons
+        g.add(btnClear, 0, 4);
+        g.add(btnCalc,  1, 4);
+        GridPane.setHalignment(btnCalc, HPos.LEFT);
+
+        // Row 5: Calculation as of <date>
+        g.add(lblCalcDate, 0, 5, 3, 1);
+
+        // Row 6: Results area (label on the left in example is just spacing; the
+        // text content itself starts with "The future value is ...")
+        g.add(txtResults, 0, 6, 3, 1);
+
+        // Alignments
+        g.setAlignment(Pos.TOP_LEFT);
+
+        // Wire events (exact behavior)
         btnClear.setOnAction(e -> clearFormFields());
-        btnCalculate.setOnAction(e -> calculateResults());
+        btnCalc.setOnAction(e -> calculateResults());
 
-        Scene scene = new Scene(root, 520, 360);
-        stage.setScene(scene);
+        stage.setScene(new Scene(g, 420, 360));
         stage.show();
-    }//end start
+    }
 
-    // Required: clear all fields and set cbYears to 0
+    // Clears all fields and sets Years to 0; wipes date/box text.
     private void clearFormFields() {
         txtMonthlyPayment.setText("");
         txtInterestRate.setText("");
-        txtResults.setText("");
-        lblFutureValueDate.setText("");
         cbYears.setValue(0);
-    }//end clearFormFields
+        lblCalcDate.setText("");
+        txtResults.setText("");
+    }
 
-    // Required: perform calculation and set required UI strings
+    // Reads inputs, computes future value via FinanceCalculator, and prints
+    // the required strings in the required places.
     private void calculateResults() {
         try {
-            double monthlyPayment = Double.parseDouble(txtMonthlyPayment.getText().trim());
-            double rate = Double.parseDouble(txtInterestRate.getText().trim());
-            Integer years = cbYears.getValue();
+            double monthly = Double.parseDouble(txtMonthlyPayment.getText().trim());
+            double rate    = Double.parseDouble(txtInterestRate.getText().trim());
+            Integer years  = cbYears.getValue();
 
             if (years == null || years < 1) {
-                showInfo("Validation Error", "Please select Years greater than 0.");
+                showInfo("Validation", "Please select Years greater than 0.");
                 return;
-            }//end if
-            if (monthlyPayment < 0 || rate < 0) {
-                showInfo("Validation Error", "Monthly Payment and Interest Rate must be non-negative.");
+            }
+            if (monthly < 0 || rate < 0) {
+                showInfo("Validation", "Values must be non-negative.");
                 return;
-            }//end if
+            }
 
-            double futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment, rate, years);
-            lblFutureValueDate.setText("Calculation as of " + getTodaysDate());
+            double fv = FinanceCalculator.calculateFutureValue(monthly, rate, years);
+
+            // EXACT strings/placement
+            lblCalcDate.setText("Calculation as of " + getTodaysDate());
 
             NumberFormat currency = NumberFormat.getCurrencyInstance();
-            txtResults.setText("The future value is " + currency.format(futureValue));
+            txtResults.setText("The future value is " + currency.format(fv));
 
-        } catch (NumberFormatException nfe) {
-            showInfo("Input Error", "Please enter valid numeric values for Monthly Payment and Interest Rate.");
-        } catch (Exception ex) {
-            showInfo("Error", "An unexpected error occurred: " + ex.getMessage());
-        }//end try-catch
-    }//end calculateResults
+        } catch (NumberFormatException ex) {
+            showInfo("Input Error", "Enter numeric values (e.g., 200 and 3.5).");
+        }
+    }
 
-    // Required: "MM/dd/yyyy" format
+    // MM/dd/yyyy format
     private String getTodaysDate() {
         return new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-    }//end getTodaysDate
+    }
 
-    private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }//end showInfo
+    private void showInfo(String title, String msg) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
+    }
 
     public static void main(String[] args) {
         launch(args);
-    }//end main
-}//end class
+    }
+}
