@@ -36,7 +36,7 @@ public class NoblesGradeBookApp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("GradeBookApp");
 
-        // ----- Form layout (labels + inputs) -----
+        // Form layout (labels + inputs)
         GridPane formGrid = new GridPane();
         formGrid.setHgap(10);
         formGrid.setVgap(10);
@@ -59,7 +59,7 @@ public class NoblesGradeBookApp extends Application {
         gradeComboBox.getItems().addAll("A", "B", "C", "D", "F");
         gradeComboBox.setPromptText("Select grade");
 
-        // Add nodes to grid: column, row
+        //Add nodes to grid: column, row
         formGrid.add(firstNameLabel, 0, 0);
         formGrid.add(firstNameField, 1, 0);
 
@@ -72,19 +72,19 @@ public class NoblesGradeBookApp extends Application {
         formGrid.add(gradeLabel, 0, 3);
         formGrid.add(gradeComboBox, 1, 3);
 
-        // ----- Buttons row (Save, Clear, View Grades) -----
+        //Buttons row (Save, Clear, View Grades)
         Button saveButton = new Button("Save Grade");
         Button clearButton = new Button("Clear Form");
         Button viewButton = new Button("View Grades");
 
-        // NOTE: No event handling yet – that will be added in Sprint 2 (module 11).
+        //No event handling yet – that will be added in Sprint 2 (module 11).
 
         HBox buttonBar = new HBox(10);
         buttonBar.setAlignment(Pos.CENTER_LEFT);
         buttonBar.setPadding(new Insets(10, 20, 10, 20));
         buttonBar.getChildren().addAll(saveButton, clearButton, viewButton);
 
-        // ----- Results / output area -----
+        //Results area (for viewing saved entries later)
         Label resultsLabel = new Label("Grade Entries:");
         resultsArea = new TextArea();
         resultsArea.setEditable(false);
@@ -96,16 +96,16 @@ public class NoblesGradeBookApp extends Application {
         resultsBox.setPadding(new Insets(0, 20, 20, 20));
         resultsBox.getChildren().addAll(resultsLabel, resultsArea);
 
-        // ----- Main layout -----
+        //Main layout: VBox (top) + GridPane (center) + HBox (bottom)
         VBox mainLayout = new VBox(10);
         mainLayout.getChildren().addAll(formGrid, buttonBar, resultsBox);
 
         Scene scene = new Scene(mainLayout, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }//end start
 
     public static void main(String[] args) {
         launch(args);
-    }
-}
+    }//end main
+}//end class
