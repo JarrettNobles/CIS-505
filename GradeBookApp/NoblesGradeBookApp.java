@@ -110,7 +110,7 @@ public class NoblesGradeBookApp extends Application {
         Scene scene = new Scene(mainLayout, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }//end start
 
     /**
      * Handles saving a grade entry to grades.csv and displaying it in the results area.
@@ -125,7 +125,7 @@ public class NoblesGradeBookApp extends Application {
         if (firstName.isEmpty() || lastName.isEmpty() || course.isEmpty() || grade == null) {
             resultsArea.appendText("Please enter first name, last name, course, and select a grade.\n");
             return;
-        }
+        }//end
 
         Student student = new Student(firstName, lastName, course, grade);
 
@@ -139,7 +139,7 @@ public class NoblesGradeBookApp extends Application {
             // Write header row if file is new
             if (!fileExists) {
                 out.println("firstName,lastName,course,grade");
-            }
+            }//end if
 
             // Write student record
             out.printf("%s,%s,%s,%s%n",
@@ -155,8 +155,8 @@ public class NoblesGradeBookApp extends Application {
 
         } catch (IOException e) {
             resultsArea.appendText("Error saving grade: " + e.getMessage() + System.lineSeparator());
-        }
-    }
+        }//end try-catch
+    }//end handleSaveGrade
 
     /**
      * Clears the input form fields (but not the results area).
@@ -166,7 +166,7 @@ public class NoblesGradeBookApp extends Application {
         lastNameField.clear();
         courseField.clear();
         gradeComboBox.getSelectionModel().clearSelection();
-    }
+    }//end handleClearForm
 
     /**
      * Reads grades.csv, converts lines to Student objects, and displays them using toString().
@@ -177,7 +177,7 @@ public class NoblesGradeBookApp extends Application {
         if (!csvFile.exists()) {
             resultsArea.appendText("No grades have been saved yet.\n");
             return;
-        }
+        }//end if
 
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
@@ -185,7 +185,7 @@ public class NoblesGradeBookApp extends Application {
             if (line == null) {
                 resultsArea.appendText("grades.csv is empty.\n");
                 return;
-            }
+            }//end if
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -197,21 +197,21 @@ public class NoblesGradeBookApp extends Application {
                             parts[3]
                     );
                     builder.append(student.toString()).append(System.lineSeparator());
-                }
-            }
+                }//end if
+            }//end while
 
             if (builder.length() == 0) {
                 resultsArea.appendText("No grade entries found in grades.csv.\n");
             } else {
                 resultsArea.setText(builder.toString());
-            }
+            }//end
 
         } catch (IOException e) {
             resultsArea.appendText("Error reading grades: " + e.getMessage() + System.lineSeparator());
-        }
-    }
+        }//end try-catch
+    }//end handleViewGrades
 
     public static void main(String[] args) {
         launch(args);
-    }
-}
+    }//end main
+}//end
